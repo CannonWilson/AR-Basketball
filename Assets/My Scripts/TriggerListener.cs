@@ -10,7 +10,7 @@ public class TriggerListener : MonoBehaviour
     /// These devices are stored as leftTarget/rightTarget InputDevices. The [GameObjects/Transforms] leftTarget and rightTarget are used in order to easily access
     /// the transform properties of the hands as they move. Several boolean variables are used to track whether or not the player can spawn a ball or a goal.
     /// Both the ball and the goal are prefabs that are stores in the My Prefabs folder.
-    
+
     List<InputDevice> leftDevices = new List<InputDevice>();
     List<InputDevice> rightDevices = new List<InputDevice>();
     private InputDevice leftTarget;
@@ -130,7 +130,7 @@ public class TriggerListener : MonoBehaviour
         ball.transform.parent = null; // Make the ball stop following controller movement
         ball.GetComponent<Rigidbody>().useGravity = true;
         if (handTarget.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 deviceVelocity)) {
-            float forceMultiplier = 120; // This value just requires testing and tweaking            
+            float forceMultiplier = 125; // This value just requires testing and tweaking            
             ball.GetComponent<Rigidbody>().AddRelativeForce(deviceVelocity * forceMultiplier);
         }
         canSpawnBall = true;
