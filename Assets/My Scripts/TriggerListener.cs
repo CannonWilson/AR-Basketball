@@ -122,7 +122,7 @@ public class TriggerListener : MonoBehaviour
         }
 
         ball = Instantiate(ballPrefab, handAnchor.transform); // Spawn ball at hand
-        ball.transform.parent = handAnchor.transform;
+        ball.transform.parent = handAnchor.transform; // Make ball track the hand
         ball.GetComponent<Rigidbody>().useGravity = false;
     }
 
