@@ -6,6 +6,11 @@ using UnityEngine.XR;
 
 public class TriggerListener : MonoBehaviour
 {
+    /// This class listens for trigger input. To do so, it creates a list of input devices and chooses the first left and right devices respectively.
+    /// These devices are stored as leftTarget/rightTarget InputDevices. The [GameObjects/Transforms] leftTarget and rightTarget are used in order to easily access
+    /// the transform properties of the hands as they move. Several boolean variables are used to track whether or not the player can spawn a ball or a goal.
+    /// Both the ball and the goal are prefabs that are stores in the My Prefabs folder.
+    
     List<InputDevice> leftDevices = new List<InputDevice>();
     List<InputDevice> rightDevices = new List<InputDevice>();
     private InputDevice leftTarget;
@@ -116,7 +121,7 @@ public class TriggerListener : MonoBehaviour
             Destroy(ball); 
         }
 
-        ball = Instantiate(ballPrefab, handAnchor.transform); // Spawn ball at left hand
+        ball = Instantiate(ballPrefab, handAnchor.transform); // Spawn ball at hand
         ball.transform.parent = handAnchor.transform;
         ball.GetComponent<Rigidbody>().useGravity = false;
     }
