@@ -783,6 +783,7 @@ MonoBehaviour:
   rightHandAnchor: {fileID: 259715463}
   ballPrefab: {fileID: 7109391457746714147, guid: 1d03f0cde676b461c906aadb1da0e54c, type: 3}
   goalPrefab: {fileID: 1320431075518481572, guid: de81dd23cfc2d4bc5b3eadf690ae2c08, type: 3}
+  debugText: {fileID: 692715587}
 --- !u!4 &165585586
 Transform:
   m_ObjectHideFlags: 0

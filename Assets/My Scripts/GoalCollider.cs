@@ -18,7 +18,7 @@ public class GoalCollider : MonoBehaviour
     
     IEnumerator UpdateText() {
         text.text = "GOOOOAAALL!!!!";
-        TriggerListener.canSpawnBall = true;
+        // TriggerListener.canSpawnBall = true;
         yield return new WaitForSeconds(2);
         text.text = "";
     }

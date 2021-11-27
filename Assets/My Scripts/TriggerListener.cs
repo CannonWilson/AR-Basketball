@@ -19,11 +19,14 @@ public class TriggerListener : MonoBehaviour
     public GameObject rightHandAnchor;
     private GameObject ball;
     private GameObject goal;
-    public static bool canSpawnBall = true;
+    public static bool leftCanSpawnBall = true;
+    public static bool rightCanSpawnBall = true;
     private bool canSpawnGoal = true;
     private bool goalWasSpawned = false;
     public GameObject ballPrefab;
     public GameObject goalPrefab;
+
+    public Text debugText;
 
 
     // Get a reference to controller characteristics and use them to reference the left and right controllers if they are found
@@ -69,7 +72,8 @@ public class TriggerListener : MonoBehaviour
         // Left trigger pressed
         if (leftTarget.TryGetFeatureValue(CommonUsages.trigger, out float leftTriggerValue) && leftTriggerValue > 0.1f) {
             if (!IsBallWithinReach(leftHandAnchor)) {
-                if (canSpawnBall) {
+                if (leftCanSpawnBall) {
+                    leftCanSpawnBall = false;
                     SpawnBall(leftHandAnchor);
                 }
             }
@@ -77,62 +81,64 @@ public class TriggerListener : MonoBehaviour
 
         // Left trigger released
         if (leftTarget.TryGetFeatureValue(CommonUsages.trigger, out float leftTriggerVal) && leftTriggerVal < 0.05f) {
-            if (!canSpawnBall) { // Easy way to see if ball was spawned already
-                ThrowBall(leftTarget);
-            }
+            // if (!canSpawnBall) { // Easy way to see if ball was spawned already
+            //     ThrowBall(leftTarget);
+            // }
         }
         
         
         // Right trigger pressed
         if (rightTarget.TryGetFeatureValue(CommonUsages.trigger, out float rightTriggerValue) && rightTriggerValue > 0.1f) {
             if (!IsBallWithinReach(rightHandAnchor)) {
-                if (canSpawnBall) {
-                    SpawnBall("left");
-                }
+                // if (canSpawnBall) {
+                //     SpawnBall(rightHandAnchor);
+                //     rightCanSpawnBall = false;
+                // }
             }
         }
 
         // Right trigger released
         if (rightTarget.TryGetFeatureValue(CommonUsages.trigger, out float rightTriggerVal) && rightTriggerVal < 0.05f) {
-            if (!canSpawnBall) { // Easy way to see if ball was spawned already
-                ThrowBall(rightTarget);
-            }
+            // if (!canSpawnBall) { // Easy way to see if ball was spawned already
+            //     ThrowBall(rightTarget);
+            // }
         }
     }
 
     // Check if there is a ball within reach of the hand
-    void IsBallWithinReach(handAnchor) {
-        if (ball.scene.IsValid()) { // If a ball exists
-            let distanceToHand = Vector3.Distance(ball.transform.position, handAnchor.position);
-            if (distanceToHand < 5) { // This value will require tweaking
-                ball.transform.parent = handAnchor.transform; // Make ball track hand
-                canSpawnBall = false;
-                return true;
-            }
-        }
+    bool IsBallWithinReach(GameObject handAnchor) {
+        debugText.text = "Ball check function reached";
+        // //if (ball.scene.IsValid()) { // If the ball exists
+        // if (GameObject.find("Ball") != null) { // If the ball exists
+        //     float distanceToHand = Vector3.Distance(ball.transform.position, handAnchor.transform.position);
+        //     if (distanceToHand < 5) { // This value will require tweaking
+        //         ball.transform.parent = handAnchor.transform; // Make ball track hand
+        //         return true;
+        //     }
+        // }
         return false;
     }
 
 
     // SpawnBall is called when a trigger is pressed
-    void SpawnBall(handAnchor) {
-        canSpawnBall = false;
-        if (ball.scene.IsValid()) { // If a ball exists 
-            Destroy(ball); 
-        }
+    void SpawnBall(GameObject handAnchor) {
+        debugText.text="spawnball() reached";
+        // if (ball.scene.IsValid()) { // If a ball exists 
+        //     Destroy(ball); 
+        // }
 
         ball = Instantiate(ballPrefab, handAnchor.transform); // Spawn ball at hand
         ball.transform.parent = handAnchor.transform; // Make ball track the hand
         ball.GetComponent<Rigidbody>().useGravity = false;
     }
 
-    void ThrowBall(handTarget) {
+    void ThrowBall(InputDevice handTarget) {
         ball.transform.parent = null; // Make the ball stop following controller movement
         ball.GetComponent<Rigidbody>().useGravity = true;
         if (handTarget.TryGetFeatureValue(CommonUsages.deviceVelocity, out Vector3 deviceVelocity)) {
             float forceMultiplier = 125; // This value just requires testing and tweaking            
             ball.GetComponent<Rigidbody>().AddRelativeForce(deviceVelocity * forceMultiplier);
         }
-        canSpawnBall = true;
+        //canSpawnBall = true;
     }
 }
