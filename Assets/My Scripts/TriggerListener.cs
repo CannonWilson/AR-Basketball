@@ -81,9 +81,9 @@ public class TriggerListener : MonoBehaviour
 
         // Left trigger released
         if (leftTarget.TryGetFeatureValue(CommonUsages.trigger, out float leftTriggerVal) && leftTriggerVal < 0.05f) {
-            // if (!canSpawnBall) { // Easy way to see if ball was spawned already
-            //     ThrowBall(leftTarget);
-            // }
+            if (!leftCanSpawnBall) { // Easy way to see if ball was spawned already
+                ThrowBall(leftTarget);
+            }
         }
         
         
@@ -123,9 +123,9 @@ public class TriggerListener : MonoBehaviour
     // SpawnBall is called when a trigger is pressed
     void SpawnBall(GameObject handAnchor) {
         debugText.text="spawnball() reached";
-        // if (ball.scene.IsValid()) { // If a ball exists 
-        //     Destroy(ball); 
-        // }
+        if (GameObject.Find("Ball") != null) { // if the ball exists
+            Destroy(ball); 
+        }
 
         ball = Instantiate(ballPrefab, handAnchor.transform); // Spawn ball at hand
         ball.transform.parent = handAnchor.transform; // Make ball track the hand
@@ -139,6 +139,5 @@ public class TriggerListener : MonoBehaviour
             float forceMultiplier = 125; // This value just requires testing and tweaking            
             ball.GetComponent<Rigidbody>().AddRelativeForce(deviceVelocity * forceMultiplier);
         }
-        //canSpawnBall = true;
     }
 }
