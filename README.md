@@ -13,12 +13,12 @@ application that can capture footage from games using the passthrough API.
 
 ### Features
 
-![Spawn the Goal](https://j.gifs.com/Y7lKjW.gif)
+![Spawn the Goal](https://i.imgur.com/j0NQXzE.gif)
 
 The player can spawn a basketball goal by pressing the left grip button. Holding down the same button allows the player to move
 and rotate the goal around.
 
-![Dribble and Dunk](https://j.gifs.com/lRM3J1.gif)
+![Dribble and Dunk](https://i.imgur.com/WEcfy9m.gif)
 
 By pressing the trigger button on either controller, the player can spawn a ball. Releasing the trigger throws/drops the ball,
 which can bounce off of the ground or the goal. You can also dunk, which is shown above. Putting the ball through the hoop
